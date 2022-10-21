@@ -7,12 +7,26 @@ const Stopwatch = () => {
     const [inputTime, setInputTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [isPaused, setIsPaused] = useState(false);
+    const [isComplete, setIsComplete] = useState(true);
 
-    const handleClick = (e, isRunning, isPaused) => {
-        setIsRunning(isRunning);
-        setIsPaused(isPaused);
-        // Disable button after it's been clicked once
-        e.currentTarget.disabled = true;
+    const handleClick = value => {
+        if (value === "Start") {
+            setIsRunning(true);
+            setIsComplete(false);
+        } else if (value === "Pause") {
+            setIsRunning(false);
+            setIsPaused(true);
+        } else if (value === "Resume") {
+            setIsRunning(true);
+            setIsPaused(false);
+        } else if (value === 'Fast Forward') {
+            setTime(inputTime);
+            setIsComplete(true);
+        } else if (value === 'Reset') {
+            setTime(0);
+            setIsComplete(true);
+            setIsRunning(false);
+        }
     }
 
     useEffect(() => {
@@ -37,9 +51,11 @@ const Stopwatch = () => {
         <>
             <div>{time}</div>
             Count to <input type="number" defaultValue={inputTime} onChange={e => {setInputTime(parseInt(e.target.value));}} /> seconds
-            <Button value="Start" disabledValue={!inputTime} onClick={handleClick} setIsRunning={true} setIsPaused={false} />
-            <Button value="Pause" disabledValue={!isRunning} onClick={handleClick} setIsRunning={false} setIsPaused={true} />
-            <Button value="Resume" disabledValue={!isPaused} onClick={handleClick} setIsRunning={true} setIsPaused={false} />
+            <Button value="Start" disabledValue={!isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
+            <Button value="Pause" disabledValue={!isRunning || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
+            <Button value="Resume" disabledValue={(isRunning || isComplete || (time === inputTime))} inputTime={inputTime} onClick={handleClick} />
+            <Button value="Fast Forward" disabledValue={isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
+            <Button value="Reset" disabledValue={isComplete && (time != inputTime)} inputTime={inputTime} onClick={handleClick} />
         </>
     );
 };

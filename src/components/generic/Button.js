@@ -1,6 +1,6 @@
-const Button = ({ value, disabledValue, onClick, setIsRunning, setIsPaused }) => {
+const Button = ({ value, disabledValue, inputTime, onClick }) => {
     return (
-        <button disabled={disabledValue} onClick={e => onClick(e, setIsRunning, setIsPaused)}>
+        <button disabled={inputTime ? disabledValue : true} onClick={e => onClick(value)}>
             {value}
         </button>
     );
