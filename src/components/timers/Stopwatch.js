@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 
+// MOVE TO HELPERS
+
+// Turn seconds to HH:MM:SS:MS
+const translateFromSeconds = seconds => {
+    return new Date(seconds * 1000).toISOString().slice(11, 19);
+};
+
+
+
 const Stopwatch = () => {
 
     const [time, setTime] = useState(0);
@@ -50,7 +59,7 @@ const Stopwatch = () => {
 
     return (
         <>
-            <div>{time}</div>
+            <div>{translateFromSeconds(time)}</div>
             Count to <input type="number" defaultValue={inputTime} disabled={inputIsDisabled} onChange={e => {setInputTime(parseInt(e.target.value));}} />
             <Button value="Start" disabledValue={!isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
             <Button value="Pause" disabledValue={!isRunning || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
