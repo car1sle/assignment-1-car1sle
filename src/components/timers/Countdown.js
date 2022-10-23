@@ -36,8 +36,9 @@ const Countdown = () => {
 
     useEffect(() => {
         
-        let totalSeconds = ((inputHours * 60) * 60) + (inputMinutes * 60) + inputSeconds;
+        const totalSeconds = ((inputHours * 60) * 60) + (inputMinutes * 60) + inputSeconds;
         setInputTime(totalSeconds);
+        setTime(totalSeconds);
 
     }, [inputHours, inputMinutes, inputSeconds]);
 
@@ -64,17 +65,17 @@ const Countdown = () => {
             <div>{translateFromSeconds(time)}</div>
             Count down from
             <br></br>
-            <input type="number" defaultValue={inputHours} disabled={inputIsDisabled} onChange={e => {
-                setInputHours(parseInt(e.target.value));
-                setTime(parseInt(e.target.value));
+            <input type="number" min="0" value={inputHours} disabled={inputIsDisabled} onChange={e => {
+                e.target.value ? setInputHours(parseInt(e.target.value)) : setInputHours(0);
+                e.target.value && setTime(parseInt(e.target.value));
             }} /> H
-            <input type="number" defaultValue={inputMinutes} disabled={inputIsDisabled} onChange={e => {
-                setInputMinutes(parseInt(e.target.value));
-                setTime(parseInt(e.target.value));
+            <input type="number" min="0" value={inputMinutes} disabled={inputIsDisabled} onChange={e => {
+                e.target.value ? setInputMinutes(parseInt(e.target.value)) : setInputMinutes(0);
+                e.target.value && setTime(parseInt(e.target.value));
             }} /> M
-            <input type="number" defaultValue={inputSeconds} disabled={inputIsDisabled} onChange={e => {
-                setInputSeconds(parseInt(e.target.value));
-                setTime(parseInt(e.target.value));
+            <input type="number" min="0" value={inputSeconds} disabled={inputIsDisabled} onChange={e => {
+                e.target.value ? setInputSeconds(parseInt(e.target.value)) : setInputSeconds(0);
+                e.target.value && setTime(parseInt(e.target.value));
             }} /> S
             <br></br>
             <Button value="Start" disabledValue={!isComplete || (time != inputTime)} inputTime={inputTime} onClick={handleClick} />
