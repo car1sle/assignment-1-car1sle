@@ -38,7 +38,7 @@ const XY = () => {
             setIsComplete(true);
             setIsRunning(false);
             setInputIsDisabled(false);
-            setRound(1);
+            setRound(inputRounds);
             setCounterRound(1);
         }
     }
@@ -52,6 +52,10 @@ const XY = () => {
                 setter(0);
             }
         }} />
+    };
+
+    const makeButton = (value, disabledValue) => {
+        return <Button value={value} disabledValue={disabledValue} inputTime={inputTime} onClick={handleClick} />
     };
 
     useEffect(() => {
@@ -97,11 +101,11 @@ const XY = () => {
             <br></br>
             For {makeInput(inputRounds, setInputRounds, setRound)} rounds
             <br></br>
-            <Button value="Start" disabledValue={!isComplete} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Pause" disabledValue={!isRunning} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Resume" disabledValue={(isRunning || isComplete || (time === 0))} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Fast Forward" disabledValue={isComplete || (time === 0)} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Reset" disabledValue={isComplete && (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
+            {makeButton("Start", !isComplete || (time === 0))}
+            {makeButton("Pause", !isRunning)}
+            {makeButton("Resume", isRunning || isComplete || (time === 0))}
+            {makeButton("Fast Forward", isComplete || (time === 0))}
+            {makeButton("Reset", isComplete && (time === inputTime))}
         </>
     );
 };

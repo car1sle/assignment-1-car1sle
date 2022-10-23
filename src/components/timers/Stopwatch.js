@@ -41,6 +41,10 @@ const Stopwatch = () => {
         }} />
     };
 
+    const makeButton = (value, disabledValue) => {
+        return <Button value={value} disabledValue={disabledValue} inputTime={inputTime} onClick={handleClick} />
+    };
+
     useEffect(() => {
         
         const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
@@ -75,11 +79,11 @@ const Stopwatch = () => {
             {makeInput(inputMinutes, setInputMinutes)} M
             {makeInput(inputSeconds, setInputSeconds)} S
             <br></br>
-            <Button value="Start" disabledValue={!isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Pause" disabledValue={!isRunning || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Resume" disabledValue={(isRunning || isComplete || (time === inputTime))} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Fast Forward" disabledValue={isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
-            <Button value="Reset" disabledValue={isComplete && (time != inputTime)} inputTime={inputTime} onClick={handleClick} />
+            {makeButton("Start", !isComplete || (time === inputTime))}
+            {makeButton("Pause", !isRunning || (time === inputTime))}
+            {makeButton("Resume", isRunning || isComplete || (time === inputTime))}
+            {makeButton("Fast Forward", isComplete || (time === inputTime))}
+            {makeButton("Reset", isComplete && (time != inputTime))}
         </>
     );
 };
