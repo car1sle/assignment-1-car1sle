@@ -5,14 +5,14 @@ import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const Stopwatch = () => {
 
+    const [isRunning, setIsRunning] = useState(false);
+    const [isComplete, setIsComplete] = useState(true);
+    const [inputIsDisabled, setInputIsDisabled] = useState(false);
     const [time, setTime] = useState(0);
     const [inputHours, setInputHours] = useState(0);
     const [inputMinutes, setInputMinutes] = useState(0);
     const [inputSeconds, setInputSeconds] = useState(0);
     const [inputTime, setInputTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-    const [isComplete, setIsComplete] = useState(true);
-    const [inputIsDisabled, setInputIsDisabled] = useState(false);
 
     const handleClick = value => {
         if (value === "Start") {
@@ -36,7 +36,7 @@ const Stopwatch = () => {
     }
 
     const makeInput = (state, setter) => {
-        return <Input state={state} inputIsDisabled={inputIsDisabled} onChange={e => {
+        return <Input value={state} disabledValue={inputIsDisabled} onChange={e => {
             e.target.value ? setter(parseInt(e.target.value)) : setter(0);
         }} />
     };

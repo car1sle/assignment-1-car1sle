@@ -1,6 +1,7 @@
-const Input = ({state, inputIsDisabled, onChange}) => {
+const Input = ({ value, disabledValue, onChange }) => {
+
     return (
-        <input type="number" min="0" value={state} disabled={inputIsDisabled} onChange={onChange} />
+        <input type="number" min="0" value={value} disabled={disabledValue} onChange={onChange} />
     );
   };
   

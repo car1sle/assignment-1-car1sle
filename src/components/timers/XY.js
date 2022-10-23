@@ -5,14 +5,16 @@ import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const XY = () => {
 
+    // States for countdown
+    const [isRunning, setIsRunning] = useState(false);
+    const [isComplete, setIsComplete] = useState(true);
+    const [inputIsDisabled, setInputIsDisabled] = useState(false);
     const [time, setTime] = useState(0);
     const [inputHours, setInputHours] = useState(0);
     const [inputMinutes, setInputMinutes] = useState(0);
     const [inputSeconds, setInputSeconds] = useState(0);
     const [inputTime, setInputTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-    const [isComplete, setIsComplete] = useState(true);
-    const [inputIsDisabled, setInputIsDisabled] = useState(false);
+    // States for rounds
     const [round, setRound] = useState(1);
     const [counterRound, setCounterRound] = useState(1);
     const [inputRounds, setInputRounds] = useState(1);
@@ -44,7 +46,7 @@ const XY = () => {
     }
 
     const makeInput = (state, setter, relatedSetter) => {
-        return <Input state={state} inputIsDisabled={inputIsDisabled} onChange={e => {
+        return <Input value={state} disabledValue={inputIsDisabled} onChange={e => {
             if (e.target.value) {
                 setter(parseInt(e.target.value));
                 relatedSetter(parseInt(e.target.value));
@@ -88,7 +90,7 @@ const XY = () => {
 
         return () => clearInterval(i);
 
-    }, [time, inputTime, isRunning, round, counterRound, inputRounds]);
+    }, [time, inputTime, isRunning, round, counterRound ]);
 
     return (
         <>
