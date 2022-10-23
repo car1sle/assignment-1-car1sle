@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
-import { translateFromSeconds } from '../../utils/helpers';
+import Input from '../generic/Input';
+import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const Stopwatch = () => {
 
@@ -34,9 +35,15 @@ const Stopwatch = () => {
         }
     }
 
+    const makeInput = (state, setter) => {
+        return <Input state={state} inputIsDisabled={inputIsDisabled} onChange={e => {
+            e.target.value ? setter(parseInt(e.target.value)) : setter(0);
+        }} />
+    };
+
     useEffect(() => {
         
-        const totalSeconds = ((inputHours * 60) * 60) + (inputMinutes * 60) + inputSeconds;
+        const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
         setInputTime(totalSeconds);
 
     }, [inputHours, inputMinutes, inputSeconds]);
@@ -64,15 +71,9 @@ const Stopwatch = () => {
             <div>{translateFromSeconds(time)}</div>
             Count to
             <br></br>
-            <input type="number" min="0" value={inputHours} disabled={inputIsDisabled} onChange={e => {
-                e.target.value ? setInputHours(parseInt(e.target.value)) : setInputHours(0);
-            }} /> H
-            <input type="number" min="0" value={inputMinutes} disabled={inputIsDisabled} onChange={e => {
-                e.target.value ? setInputMinutes(parseInt(e.target.value)) : setInputMinutes(0);
-            }} /> M
-            <input type="number" min="0" value={inputSeconds} disabled={inputIsDisabled} onChange={e => {
-                e.target.value ? setInputSeconds(parseInt(e.target.value)) : setInputSeconds(0);
-            }} /> S
+            {makeInput(inputHours, setInputHours)} H
+            {makeInput(inputMinutes, setInputMinutes)} M
+            {makeInput(inputSeconds, setInputSeconds)} S
             <br></br>
             <Button value="Start" disabledValue={!isComplete || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
             <Button value="Pause" disabledValue={!isRunning || (time === inputTime)} inputTime={inputTime} onClick={handleClick} />
