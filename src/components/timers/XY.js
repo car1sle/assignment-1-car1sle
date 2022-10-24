@@ -94,7 +94,8 @@ const XY = () => {
 
     return (
         <>
-            <div>{translateFromSeconds(time)} &#124; Round: {counterRound} of {inputRounds}</div>
+            <div>{translateFromSeconds(time)}</div>
+            <div>Round: {counterRound} of {inputRounds}</div>
             Count down from
             <br></br>
             {makeInput(inputHours, setInputHours, setTime)} H

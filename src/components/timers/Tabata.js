@@ -36,6 +36,7 @@ const Tabata = () => {
             setIsRunning(true);
         } else if (value === 'Fast Forward') {
             setTime(0);
+            setTime2(0);
             setIsRunning(false);
             setIsComplete(true);
             setInputIsDisabled(false);
@@ -43,6 +44,7 @@ const Tabata = () => {
             setCounterRound(inputRounds);
         } else if (value === 'Reset') {
             setTime(inputTime);
+            setTime2(input2Time);
             setIsComplete(true);
             setIsRunning(false);
             setInputIsDisabled(false);
@@ -72,35 +74,52 @@ const Tabata = () => {
         setInputTime(totalSeconds);
         setTime(totalSeconds);
 
-    }, [inputHours, inputMinutes, inputSeconds]);
+        const totalSeconds2 = translateToSeconds(input2Hours, input2Minutes, input2Seconds);
+        setInput2Time(totalSeconds2);
+        setTime2(totalSeconds2);
+
+    }, [inputHours, inputMinutes, inputSeconds, input2Hours, input2Minutes, input2Seconds]);
 
     useEffect(() => {
 
         let i;
+        let i2;
 
         if (isRunning) {
             i = setInterval(() => {
                 setTime(time - 1);
             }, 1000);
             if (time == 0) {
-                if (round == 1) {
+                if (time2 !== 0) {
+                    i2 = setInterval(() => {
+                        setTime2(time2 - 1);
+                    }, 1000);
                     clearInterval(i);
+                } else if (round == 1) {
+                    clearInterval(i);
+                    clearInterval(i2);
                     setIsRunning(false);
                 } else {
                     setTime(inputTime);
+                    setTime2(input2Time);
                     setRound(round - 1);
                     setCounterRound(counterRound + 1);
                 }
             }
         }
 
-        return () => clearInterval(i);
+        return () => {
+            clearInterval(i);
+            clearInterval(i2);
+        };
 
-    }, [time, inputTime, isRunning, round, counterRound ]);
+    }, [time, inputTime, isRunning, round, counterRound, time2, input2Time ]);
 
     return (
         <>
-            <div>{translateFromSeconds(time)} &#124; Round: {counterRound} of {inputRounds}</div>
+            <div>{translateFromSeconds(time)}</div>
+            <div>{translateFromSeconds(time2)}</div>
+            <div>Round: {counterRound} of {inputRounds}</div>
             Count down from
             <br></br>
             {makeInput(inputHours, setInputHours, setTime)} H
@@ -117,8 +136,8 @@ const Tabata = () => {
             <br></br>
             {makeButton("Start", !isComplete || (time === 0))}
             {makeButton("Pause", !isRunning)}
-            {makeButton("Resume", isRunning || isComplete || (time === 0))}
-            {makeButton("Fast Forward", isComplete || (time === 0))}
+            {makeButton("Resume", isRunning || isComplete || (time === 0 && time2 === 0))}
+            {makeButton("Fast Forward", isComplete || (time === 0 && time2 === 0))}
             {makeButton("Reset", isComplete && (time === inputTime))}
         </>
     );
