@@ -19,7 +19,8 @@ const Timer = styled.div`
 `;
 
 const TimerTitle = styled.div`
-  font-size: 1.5rem;
+  font-size: 15px;
+  font-style: italic;
 `;
 
 const TimersView = () => {

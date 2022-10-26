@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 import Input from '../generic/Input';
+import Counter from '../generic/CountingDisplay';
 import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const XY = () => {
@@ -45,8 +46,8 @@ const XY = () => {
         }
     }
 
-    const makeInput = (state, setter, relatedSetter) => {
-        return <Input value={state} disabledValue={inputIsDisabled} onChange={e => {
+    const makeInput = (state, setter, relatedSetter, label) => {
+        return <Input label={label} value={state} disabledValue={inputIsDisabled} onChange={e => {
             if (e.target.value) {
                 setter(parseInt(e.target.value));
                 relatedSetter(parseInt(e.target.value));
@@ -93,23 +94,24 @@ const XY = () => {
     }, [time, inputTime, isRunning, round, counterRound ]);
 
     return (
-        <>
-            <div>{translateFromSeconds(time)}</div>
-            <div>Round: {counterRound} of {inputRounds}</div>
-            Count down from
-            <br></br>
-            {makeInput(inputHours, setInputHours, setTime)} H
-            {makeInput(inputMinutes, setInputMinutes, setTime)} M
-            {makeInput(inputSeconds, setInputSeconds, setTime)} S
-            <br></br>
-            For {makeInput(inputRounds, setInputRounds, setRound)} rounds
-            <br></br>
-            {makeButton("Start", !isComplete || (time === 0))}
-            {makeButton("Pause", !isRunning)}
-            {makeButton("Resume", isRunning || isComplete || (time === 0))}
-            {makeButton("Fast Forward", isComplete || (time === 0))}
-            {makeButton("Reset", isComplete && (time === inputTime))}
-        </>
+        <div style={{ textAlign: "center",}}>
+            <Counter value={translateFromSeconds(time)} />
+            <div style={{ margin: "15px 0 20px", fontStyle: "italic",}}>Round {counterRound} of {inputRounds}</div>
+            <div style={{ margin: "10px 0 20px", display: "flex",}}>
+                {makeButton("Start", !isComplete || (time === 0))}
+                {makeButton("Pause", !isRunning)}
+                {makeButton("Resume", isRunning || isComplete || (time === 0))}
+                {makeButton("Fast Forward", isComplete || (time === 0))}
+                {makeButton("Reset", isComplete && (time === inputTime))}
+            </div>
+            <div style={{ margin: "0 0 10px",display: "flex", justifyContent: "center", alignItems: "center",}}>
+                <div style={{ width: "135px", textAlign: "right"}}>Set workout time:</div>
+                {makeInput(inputHours, setInputHours, setTime, "H")}
+                {makeInput(inputMinutes, setInputMinutes, setTime, "M")}
+                {makeInput(inputSeconds, setInputSeconds, setTime, "S")}
+            </div>
+            <div style={{ margin: "0 0 10px",}}>Set number of rounds: {makeInput(inputRounds, setInputRounds, setRound, "R")}</div>
+        </div>
     );
 };
 

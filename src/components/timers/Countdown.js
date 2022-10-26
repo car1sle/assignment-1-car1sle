@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 import Input from '../generic/Input';
+import Counter from '../generic/CountingDisplay';
 import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const Countdown = () => {
@@ -35,8 +36,8 @@ const Countdown = () => {
         }
     }
 
-    const makeInput = (state, setter) => {
-        return <Input value={state} disabledValue={inputIsDisabled} onChange={e => {
+    const makeInput = (state, setter, label) => {
+        return <Input label={label} value={state} disabledValue={inputIsDisabled} onChange={e => {
             if (e.target.value) {
                 setter(parseInt(e.target.value));
                 setTime(parseInt(e.target.value));
@@ -77,20 +78,22 @@ const Countdown = () => {
     }, [time, inputTime, isRunning]);
 
     return (
-        <>
-            <div>{translateFromSeconds(time)}</div>
-            Count down from
-            <br></br>
-            {makeInput(inputHours, setInputHours)} H
-            {makeInput(inputMinutes, setInputMinutes)} M
-            {makeInput(inputSeconds, setInputSeconds)} S
-            <br></br>
-            {makeButton("Start", !isComplete || (time != inputTime))}
-            {makeButton("Pause", !isRunning)}
-            {makeButton("Resume", isRunning || isComplete || (time === 0))}
-            {makeButton("Fast Forward", isComplete || (time === 0))}
-            {makeButton("Reset", isComplete && (time === inputTime))}
-        </>
+        <div style={{ textAlign: "center",}}>
+            <Counter value={translateFromSeconds(time)} />
+            <div style={{ margin: "10px 0 20px", display: "flex",}}>
+                {makeButton("Start", !isComplete || (time != inputTime))}
+                {makeButton("Pause", !isRunning)}
+                {makeButton("Resume", isRunning || isComplete || (time === 0))}
+                {makeButton("Fast Forward", isComplete || (time === 0))}
+                {makeButton("Reset", isComplete && (time === inputTime))}
+            </div>
+            <div style={{ margin: "0 0 10px",display: "flex", justifyContent: "center", alignItems: "center",}}>
+                <div style={{ width: "135px", textAlign: "right"}}>Set workout time:</div>
+                {makeInput(inputHours, setInputHours, "H")}
+                {makeInput(inputMinutes, setInputMinutes, "M")}
+                {makeInput(inputSeconds, setInputSeconds, "S")}
+            </div>
+        </div>
     );
 };
 

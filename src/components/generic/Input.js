@@ -1,7 +1,27 @@
-const Input = ({ value, disabledValue, onChange }) => {
+import styled from 'styled-components';
+
+const StyledInputContainer = styled.div`
+  margin: 10px 15px;
+  font-size: 20px;
+  display: inline-block;
+`;
+
+const StyledInput = styled.input`
+  font-family: 'Roboto Mono', monospace;
+  width: ${props => {
+    if (props.label === 'R') return '60px';
+    else return '80px';
+  }};
+  font-size: 20px;
+`;
+
+const Input = ({ value, disabledValue, onChange, label }) => {
 
     return (
-        <input type="number" min="0" value={value} disabled={disabledValue} onChange={onChange} />
+        <StyledInputContainer>
+            <StyledInput type="number" min="0" value={value} disabled={disabledValue} onChange={onChange} label={label} />
+            {label !== "R" && ` ${label}`}
+        </StyledInputContainer>
     );
   };
   
