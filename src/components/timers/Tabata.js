@@ -27,30 +27,38 @@ const Tabata = () => {
     const [input2Time, setInput2Time] = useState(0);
 
     const handleClick = value => {
-        if (value === "Start") {
-            setIsRunning(true);
-            setIsComplete(false);
-            setInputIsDisabled(true);
-        } else if (value === "Pause") {
-            setIsRunning(false);
-        } else if (value === "Resume") {
-            setIsRunning(true);
-        } else if (value === 'Fast Forward') {
-            setTime(0);
-            setTime2(0);
-            setIsRunning(false);
-            setIsComplete(true);
-            setInputIsDisabled(false);
-            setRound(inputRounds);
-            setCounterRound(inputRounds);
-        } else if (value === 'Reset') {
-            setTime(inputTime);
-            setTime2(input2Time);
-            setIsComplete(true);
-            setIsRunning(false);
-            setInputIsDisabled(false);
-            setRound(inputRounds);
-            setCounterRound(1);
+        switch(value) {
+            case 'Start':
+                setIsRunning(true);
+                setIsComplete(false);
+                setInputIsDisabled(true);
+                break;
+            case 'Pause':
+                setIsRunning(false);
+                break;
+            case 'Resume':
+                setIsRunning(true);
+                break;
+            case 'Fast Forward':
+                setTime(0);
+                setTime2(0);
+                setIsRunning(false);
+                setIsComplete(true);
+                setInputIsDisabled(false);
+                setRound(inputRounds);
+                setCounterRound(inputRounds);
+                break;
+            case 'Reset':
+                setTime(inputTime);
+                setTime2(input2Time);
+                setIsComplete(true);
+                setIsRunning(false);
+                setInputIsDisabled(false);
+                setRound(inputRounds);
+                setCounterRound(1);
+                break;
+            default:
+                break;
         }
     }
 
@@ -70,7 +78,7 @@ const Tabata = () => {
     };
 
     useEffect(() => {
-        
+
         const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
         setInputTime(totalSeconds);
         setTime(totalSeconds);

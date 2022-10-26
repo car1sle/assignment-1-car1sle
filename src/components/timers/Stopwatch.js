@@ -16,23 +16,31 @@ const Stopwatch = () => {
     const [inputTime, setInputTime] = useState(0);
 
     const handleClick = value => {
-        if (value === "Start") {
-            setIsRunning(true);
-            setIsComplete(false);
-            setInputIsDisabled(true);
-        } else if (value === "Pause") {
-            setIsRunning(false);
-        } else if (value === "Resume") {
-            setIsRunning(true);
-        } else if (value === 'Fast Forward') {
-            setTime(inputTime);
-            setIsComplete(true);
-            setInputIsDisabled(false);
-        } else if (value === 'Reset') {
-            setTime(0);
-            setIsComplete(true);
-            setIsRunning(false);
-            setInputIsDisabled(false);
+        switch(value) {
+            case 'Start':
+                setIsRunning(true);
+                setIsComplete(false);
+                setInputIsDisabled(true);
+                break;
+            case 'Pause':
+                setIsRunning(false);
+                break;
+            case 'Resume':
+                setIsRunning(true);
+                break;
+            case 'Fast Forward':
+                setTime(inputTime);
+                setIsComplete(true);
+                setInputIsDisabled(false);
+                break;
+            case 'Reset':
+                setTime(0);
+                setIsComplete(true);
+                setIsRunning(false);
+                setInputIsDisabled(false);
+                break;
+            default:
+                break;
         }
     }
 
@@ -47,7 +55,7 @@ const Stopwatch = () => {
     };
 
     useEffect(() => {
-        
+
         const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
         setInputTime(totalSeconds);
 
