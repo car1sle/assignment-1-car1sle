@@ -87,7 +87,7 @@ const Stopwatch = () => {
                 {makeButton("Pause", !isRunning || (time === inputTime))}
                 {makeButton("Resume", isRunning || isComplete || (time === inputTime))}
                 {makeButton("Fast Forward", isComplete || (time === inputTime))}
-                {makeButton("Reset", isComplete && (time != inputTime))}
+                {makeButton("Reset", isComplete && (time !== inputTime))}
             </div>
             <div style={{ margin: "0 0 10px",display: "flex", justifyContent: "center", alignItems: "center",}}>
                 <div style={{ width: "135px", textAlign: "right"}}>Set workout time:</div>

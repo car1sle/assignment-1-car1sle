@@ -98,13 +98,13 @@ const Tabata = () => {
             i = setInterval(() => {
                 setTime(time - 1);
             }, 1000);
-            if (time == 0) {
+            if (time === 0) {
                 if (time2 !== 0) {
                     i2 = setInterval(() => {
                         setTime2(time2 - 1);
                     }, 1000);
                     clearInterval(i);
-                } else if (round == 1) {
+                } else if (round === 1) {
                     clearInterval(i);
                     clearInterval(i2);
                     setIsRunning(false);

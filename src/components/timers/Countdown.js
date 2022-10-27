@@ -89,7 +89,7 @@ const Countdown = () => {
         <div style={{ textAlign: "center",}}>
             <Counter value={translateFromSeconds(time)} />
             <div style={{ margin: "10px 0 20px", display: "flex",}}>
-                {makeButton("Start", !isComplete || (time != inputTime))}
+                {makeButton("Start", !isComplete || (time !== inputTime))}
                 {makeButton("Pause", !isRunning)}
                 {makeButton("Resume", isRunning || isComplete || (time === 0))}
                 {makeButton("Fast Forward", isComplete || (time === 0))}

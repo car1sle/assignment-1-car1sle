@@ -85,8 +85,8 @@ const XY = () => {
             i = setInterval(() => {
                 setTime(time - 1);
             }, 1000);
-            if (time == 0) {
-                if (round == 1) {
+            if (time === 0) {
+                if (round === 1) {
                     clearInterval(i);
                     setIsRunning(false);
                 } else {
