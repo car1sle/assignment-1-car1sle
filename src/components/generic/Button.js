@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ThemeProvider } from 'styled-components';
 
+// Palette generated @ https://coolors.co/
 const theme = {
   start: {
     bgColor: "#44AF69",
