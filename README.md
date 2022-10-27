@@ -28,6 +28,7 @@ Our larger components are going to be `Stopwatch`, `Countdown`, `XY`, and `Tabat
 ### Deployment Instructions (Github actions)
 
 [Deployment instructions](https://github.com/prof-tejera/react-deployment-code#github-actions)
+URL: https://prof-tejera.github.io/assignment-1-car1sle
 
 ## Grading rubric
 
