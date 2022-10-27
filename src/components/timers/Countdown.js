@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 import Input from '../generic/Input';
-import Counter from '../generic/CountingDisplay';
+import Counter from '../generic/Counter';
 import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
 
 const Countdown = () => {

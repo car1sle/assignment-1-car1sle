@@ -60,9 +60,9 @@ const Button = ({ value, disabledValue, inputTime, onClick }) => {
     return (
       <ThemeProvider theme={theme}>
         <StyledButton disabled={inputTime ? disabledValue : true} onClick={e => onClick(value)} value={value}>
-            {value}
+          {value}
         </StyledButton>
-        </ThemeProvider>
+      </ThemeProvider>
     );
   };
   
