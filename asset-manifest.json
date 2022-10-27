@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/assignment-1-car1sle/static/css/main.5f6ab431.css",
+    "main.js": "/assignment-1-car1sle/static/js/main.fc50817e.js",
+    "index.html": "/assignment-1-car1sle/index.html",
+    "main.5f6ab431.css.map": "/assignment-1-car1sle/static/css/main.5f6ab431.css.map",
+    "main.fc50817e.js.map": "/assignment-1-car1sle/static/js/main.fc50817e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5f6ab431.css",
+    "static/js/main.fc50817e.js"
+  ]
+}
