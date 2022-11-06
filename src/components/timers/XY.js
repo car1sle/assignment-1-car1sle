@@ -65,8 +65,8 @@ const XY = () => {
         }} />
     };
 
-    const makeButton = (value, disabledValue) => {
-        return <Button value={value} disabledValue={disabledValue} inputTime={inputTime} onClick={handleClick} />
+    const makeButton = ({value, disabledValue}) => {
+        return <Button value={value} disabledValue={inputTime ? disabledValue : true} onClick={handleClick} />
     };
 
     useEffect(() => {
@@ -103,14 +103,29 @@ const XY = () => {
 
     return (
         <div style={{ textAlign: "center",}}>
-            <Counter value={translateFromSeconds(time)} />
+            <Counter>{translateFromSeconds(time)}</Counter>
             <div style={{ margin: "15px 0 20px", fontStyle: "italic",}}>Round {counterRound} of {inputRounds}</div>
             <div style={{ margin: "10px 0 20px", display: "flex",}}>
-                {makeButton("Start", !isComplete || (time === 0))}
-                {makeButton("Pause", !isRunning)}
-                {makeButton("Resume", isRunning || isComplete || (time === 0))}
-                {makeButton("Fast Forward", isComplete || (time === 0))}
-                {makeButton("Reset", isComplete && (time === inputTime))}
+                {makeButton({
+                    value: "Start",
+                    disabledValue: !isComplete || (time === 0)
+                })}
+                {makeButton({
+                    value: "Pause",
+                    disabledValue: !isRunning
+                })}
+                {makeButton({
+                    value: "Resume",
+                    disabledValue: isRunning || isComplete || (time === 0)
+                })}
+                {makeButton({
+                    value: "Fast Forward",
+                    disabledValue: isComplete || (time === 0)
+                })}
+                {makeButton({
+                    value: "Reset",
+                    disabledValue: isComplete && (time === inputTime)
+                })}
             </div>
             <div style={{ margin: "0 0 10px",display: "flex", justifyContent: "center", alignItems: "center",}}>
                 <div style={{ width: "135px", textAlign: "right"}}>Set workout time:</div>

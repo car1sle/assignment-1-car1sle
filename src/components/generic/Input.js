@@ -20,6 +20,7 @@ const Input = ({ value, disabledValue, onChange, label }) => {
     return (
         <StyledInputContainer>
             <StyledInput type="number" min="0" value={value} disabled={disabledValue} onChange={onChange} label={label} />
+            {/* If the input is to set the number of rounds, do not show the label next to it */}
             {label !== "R" && ` ${label}`}
         </StyledInputContainer>
     );
