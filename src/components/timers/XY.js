@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 import Input from '../generic/Input';
 import Counter from '../generic/Counter';
-import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
+import { translateFromSeconds } from '../../utils/helpers';
+import { useTimeSetter } from '../../utils/hooks';
 
 const XY = () => {
 
@@ -69,13 +70,8 @@ const XY = () => {
         return <Button value={value} disabledValue={inputTime ? disabledValue : true} onClick={handleClick} />
     };
 
-    useEffect(() => {
-
-        const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
-        setInputTime(totalSeconds);
-        setTime(totalSeconds);
-
-    }, [inputHours, inputMinutes, inputSeconds]);
+    useTimeSetter(setInputTime, inputHours, inputMinutes, inputSeconds);
+    useTimeSetter(setTime, inputHours, inputMinutes, inputSeconds);
 
     useEffect(() => {
 

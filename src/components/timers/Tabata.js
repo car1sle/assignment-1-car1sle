@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Button from '../generic/Button';
 import Input from '../generic/Input';
 import Counter from '../generic/Counter';
-import { translateFromSeconds, translateToSeconds } from '../../utils/helpers';
+import { translateFromSeconds } from '../../utils/helpers';
+import { useTimeSetter } from '../../utils/hooks';
 
 const Tabata = () => {
 
@@ -77,17 +78,10 @@ const Tabata = () => {
         return <Button value={value} disabledValue={inputTime ? disabledValue : true} onClick={handleClick} />
     };
 
-    useEffect(() => {
-
-        const totalSeconds = translateToSeconds(inputHours, inputMinutes, inputSeconds);
-        setInputTime(totalSeconds);
-        setTime(totalSeconds);
-
-        const totalSeconds2 = translateToSeconds(input2Hours, input2Minutes, input2Seconds);
-        setInput2Time(totalSeconds2);
-        setTime2(totalSeconds2);
-
-    }, [inputHours, inputMinutes, inputSeconds, input2Hours, input2Minutes, input2Seconds]);
+    useTimeSetter(setInputTime, inputHours, inputMinutes, inputSeconds);
+    useTimeSetter(setTime, inputHours, inputMinutes, inputSeconds);
+    useTimeSetter(setInput2Time, input2Hours, input2Minutes, input2Seconds);
+    useTimeSetter(setTime2, input2Hours, input2Minutes, input2Seconds);
 
     useEffect(() => {
 
